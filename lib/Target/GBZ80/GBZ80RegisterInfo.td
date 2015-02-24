@@ -1,4 +1,4 @@
-//===-- GBZ80RegisterInfo.td - GBZ80 Register defs -----------*- tablegen -*-===//
+//===-- GBZ80RegisterInfo.td - GBZ80 Register defs ---------*- tablegen -*-===//
 //
 //                     The LLVM Compiler Infrastructure
 //
@@ -12,14 +12,44 @@
 //===----------------------------------------------------------------------===//
 
 
-class GBZ80Reg<string n> : Register<n> {
-
+class GBZ80Register<string n, bits<8> Enc = 0> : Register<n> {
+  let Namespace = "GBZ80";
+  let HWEncoding = Enc;
 }
 
-def AF : Register<"AF">, DwarfRegNum<[0]>;
-def BC : Register<"BC">, DwarfRegNum<[1]>;
-def DE : Register<"DE">, DwarfRegNum<[2]>;
-def HL : Register<"HL">, DwarfRegNum<[3]>;
+class GBZ80SubRegIndex<int size, int offset = 0> : SubRegIndex<size, offset> {
+  let Namespace = "GBZ80";
+}
 
-def SP : Register<"SP">, DwarfRegNum<[4]>;
-def PC : Register<"PC">, DwarfRegNum<[5]>;
+def subreg_hi : GBZ80SubRegIndex<8, 8>;
+def subreg_lo : GBZ80SubRegIndex<8, 0>;
+
+class GBZ80RegWithSubRegs<string n, bits<16> Enc = 0, list<Register> subregs = []>
+  : GBZ80Register<n, Enc> {
+  let SubRegs = subregs;
+  let SubRegIndices = [subreg_hi, subreg_lo];
+  let CoveredBySubRegs = 1;
+}
+
+// Accumulator
+def A : GBZ80Register<"A", 7>;
+
+// Auxiliary Registers
+def B : GBZ80Register<"B", 0>;
+def C : GBZ80Register<"C", 1>;
+def D : GBZ80Register<"D", 2>;
+def E : GBZ80Register<"E", 3>;
+def H : GBZ80Register<"H", 4>;
+def L : GBZ80Register<"L", 5>;
+
+// Flags Register
+def FLAGS : GBZ80Register<"F">;
+
+// 16-bit registers
+def AF : GBZ80RegWithSubRegs<"af", 0, [A, FLAGS]>;
+def BC : GBZ80RegWithSubRegs<"bc", 1, [B, C]>;
+def DE : GBZ80RegWithSubRegs<"de", 2, [D, E]>;
+def HL : GBZ80RegWithSubRegs<"hl", 3, [H, L]>;
+
+def SP : GBZ80Register<"SP">;
+def PC : GBZ80Register<"PC">;
