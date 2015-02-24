@@ -22,4 +22,7 @@ namespace llvm {
     extern Target TheGBZ80Target;
 }
 
+#define GET_REGINFO_ENUM
+#include "GBZ80GenRegisterInfo.inc"
+
 #endif // GBZ80MCTARGETDESC_H

@@ -17,6 +17,24 @@
 #include "llvm/Target/TargetRegisterInfo.h"
 
 #define GET_REGINFO_HEADER
-#include "GBZ80RegisterInfo.inc"
+#include "GBZ80GenRegisterInfo.inc"
+
+namespace llvm {
+  class TargetInstrInfo;
+  class GBZ80TargetMachine;
+
+  class GBZ80RegisterInfo : public Gbz80GenRegisterInfo {
+    GBZ80TargetMachine &TM;
+    const TargetInstrInfo &TII;
+  public:
+    GBZ80RegisterInfo(GBZ80TargetMachine &tm, const TargetInstrInfo &tii);
+
+    // Code Generation virtual methods...
+    const uint16_t *getCalleeSavedRegs(const MachineFunction *MF = 0) const;
+    const uint32_t *getCallPreservedMask(CallingConv::ID CallConv) const;
+
+    BitVector getReservedRegs(const MachineFunction &MF) const;
+  };
+} // end namespace llvm
 
 #endif

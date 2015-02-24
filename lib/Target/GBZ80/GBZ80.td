@@ -20,3 +20,11 @@ include "llvm/Target/Target.td"
 //===----------------------------------------------------------------------===//
 
 include "GBZ80RegisterInfo.td"
+include "GBZ80CallingConv.td"
+
+def Gbz80InstrInfo : InstrInfo;
+
+def Gbz80 : Target {
+  // Pull in Instruction Info:
+  // let InstructionSet = Gbz80InstrInfo;
+}

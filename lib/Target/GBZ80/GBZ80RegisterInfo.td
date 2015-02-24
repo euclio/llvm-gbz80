@@ -12,7 +12,7 @@
 //===----------------------------------------------------------------------===//
 
 
-class GBZ80Register<string n, bits<8> Enc = 0> : Register<n> {
+class GBZ80Register<string n, bits<16> Enc = 0> : Register<n> {
   let Namespace = "GBZ80";
   let HWEncoding = Enc;
 }
@@ -30,6 +30,12 @@ class GBZ80RegWithSubRegs<string n, bits<16> Enc = 0, list<Register> subregs = [
   let SubRegIndices = [subreg_hi, subreg_lo];
   let CoveredBySubRegs = 1;
 }
+
+class GBZ80Register8Class<dag reglist>
+  : RegisterClass<"GBZ80", [i8], 8, reglist> {}
+
+class GBZ80Register16Class<dag reglist>
+  : RegisterClass<"GBZ80", [i16], 8, reglist> {}
 
 // Accumulator
 def A : GBZ80Register<"A", 7>;
@@ -53,3 +59,6 @@ def HL : GBZ80RegWithSubRegs<"hl", 3, [H, L]>;
 
 def SP : GBZ80Register<"SP">;
 def PC : GBZ80Register<"PC">;
+
+def GR8 : GBZ80Register8Class<(add A, B, C, D, E, H, L)>;
+def GR16 : GBZ80Register16Class<(add BC, DE, HL)>;

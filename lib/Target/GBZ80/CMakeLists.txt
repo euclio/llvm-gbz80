@@ -1,6 +1,7 @@
 set(LLVM_TARGET_DEFINITIONS GBZ80.td)
 
-tablegen(LLVM GBZ80RegisterInfo.inc -gen-register-info)
+tablegen(LLVM GBZ80GenRegisterInfo.inc -gen-register-info)
+tablegen(LLVM GBZ80GenCallingConv.inc -gen-callingconv)
 
 add_public_tablegen_target(GBZ80CommonTableGen)
 

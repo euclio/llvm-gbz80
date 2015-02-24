@@ -28,6 +28,6 @@
 using namespace llvm;
 
 #define GET_REGINFO_MC_DESC
-#include "GBZ80RegisterInfo.inc"
+#include "GBZ80GenRegisterInfo.inc"
 
 extern "C" void LLVMInitializeGBZ80TargetMC() {}
