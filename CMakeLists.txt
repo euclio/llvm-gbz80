@@ -158,6 +158,7 @@ set(LLVM_ALL_TARGETS
   AArch64
   ARM
   CppBackend
+  GBZ80
   Hexagon
   Mips
   MSP430

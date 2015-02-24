@@ -24,6 +24,7 @@ const char *Triple::getArchTypeName(ArchType Kind) {
   case arm:         return "arm";
   case armeb:       return "armeb";
   case bpf:         return "bpf";
+  case gbz80:       return "gbz80";
   case hexagon:     return "hexagon";
   case mips:        return "mips";
   case mipsel:      return "mipsel";
@@ -81,6 +82,8 @@ const char *Triple::getArchTypePrefix(ArchType Kind) {
   case mipsel:
   case mips64:
   case mips64el:    return "mips";
+
+  case gbz80:       return "gbz80";
 
   case hexagon:     return "hexagon";
 
@@ -308,6 +311,7 @@ static Triple::ArchType parseArch(StringRef ArchName) {
     .Case("amdgcn", Triple::amdgcn)
     .Case("bpf", Triple::bpf)
     .Case("hexagon", Triple::hexagon)
+    .Case("gbz80", Triple::gbz80)
     .Case("s390x", Triple::systemz)
     .Case("sparc", Triple::sparc)
     .Cases("sparcv9", "sparc64", Triple::sparcv9)
@@ -862,6 +866,9 @@ static unsigned getArchPointerBitWidth(llvm::Triple::ArchType Arch) {
   switch (Arch) {
   case llvm::Triple::UnknownArch:
     return 0;
+
+  case llvm::Triple::gbz80:
+    return 8;
 
   case llvm::Triple::msp430:
     return 16;

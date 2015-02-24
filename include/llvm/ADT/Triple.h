@@ -51,6 +51,7 @@ public:
     aarch64,    // AArch64 (little endian): aarch64
     aarch64_be, // AArch64 (big endian): aarch64_be
     bpf,        // eBPF or extended BPF or 64-bit BPF (little endian)
+    gbz80,      // GBZ80: Nintendo Game Boy
     hexagon,    // Hexagon: hexagon
     mips,       // MIPS: mips, mipsallegrex
     mipsel,     // MIPSEL: mipsel, mipsallegrexel
