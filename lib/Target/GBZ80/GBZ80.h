@@ -20,6 +20,9 @@
 
 namespace llvm {
   class GBZ80TargetMachine;
+  class FunctionPass;
+
+  FunctionPass *createGBZ80ISelDAG(GBZ80TargetMachine &TM, CodeGenOpt::Level OptLevel);
 } // end namespace llvm;
 
 #endif

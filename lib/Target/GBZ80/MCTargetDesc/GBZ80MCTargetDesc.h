@@ -25,4 +25,7 @@ namespace llvm {
 #define GET_REGINFO_ENUM
 #include "GBZ80GenRegisterInfo.inc"
 
+#define GET_INSTRINFO_ENUM
+#include "GBZ80GenInstrInfo.inc"
+
 #endif // GBZ80MCTARGETDESC_H

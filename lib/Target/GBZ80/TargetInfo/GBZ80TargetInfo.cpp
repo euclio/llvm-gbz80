@@ -16,5 +16,5 @@ Target llvm::TheGBZ80Target;
 
 extern "C" void LLVMInitializeGBZ80TargetInfo() {
     RegisterTarget<Triple::gbz80, /*HasJIT=*/ false>
-        X(TheGBZ80Target, "gbz80", "GBZ80");
+        X(TheGBZ80Target, "gbz80", "Game Boy Z80 [development]");
 }

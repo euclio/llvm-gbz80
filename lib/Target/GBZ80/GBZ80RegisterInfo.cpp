@@ -29,7 +29,7 @@
 using namespace llvm;
 
 GBZ80RegisterInfo::GBZ80RegisterInfo(GBZ80TargetMachine &tm, const TargetInstrInfo &tii)
-  : Gbz80GenRegisterInfo(GBZ80::PC), TM(tm), TII(tii) {}
+  : GBZ80GenRegisterInfo(GBZ80::PC), TM(tm), TII(tii) {}
 
 const uint16_t* GBZ80RegisterInfo::getCalleeSavedRegs(const MachineFunction *MF) const {
   static const uint16_t CalleeSavedRegs[] = {

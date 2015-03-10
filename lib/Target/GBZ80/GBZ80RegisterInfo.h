@@ -14,8 +14,6 @@
 #ifndef LLVM_LIB_TARGET_GBZ80_GBZ80REGISTERINFO_H
 #define LLVM_LIB_TARGET_GBZ80_GBZ80REGISTERINFO_H
 
-#include "llvm/Target/TargetRegisterInfo.h"
-
 #define GET_REGINFO_HEADER
 #include "GBZ80GenRegisterInfo.inc"
 
@@ -23,7 +21,7 @@ namespace llvm {
   class TargetInstrInfo;
   class GBZ80TargetMachine;
 
-  class GBZ80RegisterInfo : public Gbz80GenRegisterInfo {
+  class GBZ80RegisterInfo : public GBZ80GenRegisterInfo {
     GBZ80TargetMachine &TM;
     const TargetInstrInfo &TII;
   public:
@@ -34,6 +32,11 @@ namespace llvm {
     const uint32_t *getCallPreservedMask(CallingConv::ID CallConv) const;
 
     BitVector getReservedRegs(const MachineFunction &MF) const;
+
+    void eliminateFrameIndex(MachineBasicBlock::iterator I,
+            int SPAdj, unsigned FIOperandNum, RegScavenger *RS = nullptr) const;
+
+    unsigned getFrameRegister(const MachineFunction &MF) const;
   };
 } // end namespace llvm
 

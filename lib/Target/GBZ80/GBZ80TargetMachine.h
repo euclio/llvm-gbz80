@@ -14,28 +14,44 @@
 #ifndef LLVM_LIB_TARGET_GBZ80_GBZ80TARGETMACHINE_H
 #define LLVM_LIB_TARGET_GBZ80_GBZ80TARGETMACHINE_H
 
+#include "GBZ80.h"
+#include "GBZ80FrameLowering.h"
+#include "GBZ80ISelLowering.h"
+#include "GBZ80InstrInfo.h"
+#include "GBZ80SelectionDAGInfo.h"
 #include "llvm/IR/DataLayout.h"
-#include "llvm/Target/TargetMachine.h"
 
 namespace llvm {
 
 class GBZ80TargetMachine : public LLVMTargetMachine {
   const DataLayout DL;
+  GBZ80FrameLowering FrameLowering;
+  GBZ80InstrInfo InstrInfo;
+  GBZ80SelectionDAGInfo TSInfo;
+  GBZ80TargetLowering TLInfo;
 public:
   GBZ80TargetMachine(const Target &T, StringRef TT, StringRef CPU,
                      StringRef FS, const TargetOptions &Options,
                      Reloc::Model RM, CodeModel::Model CM,
                      CodeGenOpt::Level OL);
 
-  ~GBZ80TargetMachine() override;
-
   const DataLayout *getDataLayout() const override { return &DL; }
+  virtual const GBZ80FrameLowering *getFrameLowering() const {
+      return &FrameLowering;
+  }
+  virtual const GBZ80InstrInfo *getInstrInfo() const { return &InstrInfo; }
+  virtual const GBZ80RegisterInfo *getRegisterInfo() const {
+      return &getInstrInfo()->getRegisterInfo();
+  }
+  virtual const GBZ80SelectionDAGInfo *getSelectionDAGInfo() const {
+      return &TSInfo;
+  }
+  virtual const GBZ80TargetLowering *getTargetLowering() const {
+      return &TLInfo;
+  }
 
   // Pass Pipeline Configuration
-  /*TargetPassConfig *createPassConfig(PassManagerBase &PM) override;
-  TargetLoweringObjectFile *getObjFileLowering() const override {
-    return TLOF.get();
-  }*/
+  TargetPassConfig *createPassConfig(PassManagerBase &PM) override;
 };
 
 } // end namespace llvm

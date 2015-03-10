@@ -27,6 +27,9 @@
 
 using namespace llvm;
 
+#define GET_INSTRINFO_MC_DESC
+#include "GBZ80GenInstrInfo.inc"
+
 #define GET_REGINFO_MC_DESC
 #include "GBZ80GenRegisterInfo.inc"
 

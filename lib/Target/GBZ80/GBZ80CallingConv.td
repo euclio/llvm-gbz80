@@ -15,7 +15,7 @@
 // GBZ80 Return Value Calling Convention
 //===----------------------------------------------------------------------===//
 
-def RetCC_Z80 : CallingConv<[
+def RetCC_GBZ80 : CallingConv<[
   // i8 are returned in register A
   CCIfType<[i8], CCAssignToReg<[A]>>,
 
@@ -27,7 +27,7 @@ def RetCC_Z80 : CallingConv<[
 // GBZ80 Argument Calling Conventions
 //===----------------------------------------------------------------------===//
 
-def CC_Z80 : CallingConv<[
+def CC_GBZ80 : CallingConv<[
   // Assign i8 arguments in registers
   CCIfType<[i8], CCAssignToReg<[A, H, L]>>,
 

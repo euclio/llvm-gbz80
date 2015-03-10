@@ -30,7 +30,7 @@ class DDCB     : Prefix<5>;
 class FDCB     : Prefix<6>;
 
 //===----------------------------------------------------------------------===//
-// Z80 Instruction Format Definitions.
+// GBZ80 Instruction Format Definitions.
 //===----------------------------------------------------------------------===//
 //
 // I - Instruction with no operands.
@@ -48,7 +48,7 @@ class FDCB     : Prefix<6>;
 //
 //===----------------------------------------------------------------------===//
 
-class GBZ80Instruction<dag outs, dag ins, string asmstr>
+class GBZ80Inst<dag outs, dag ins, string asmstr>
   : Instruction {
   let Namespace = "GBZ80";
 
@@ -64,7 +64,7 @@ class GBZ80Instruction<dag outs, dag ins, string asmstr>
 }
 
 class PseudoI<dag outs, dag ins, list<dag> pattern>
-  : Z80Inst<outs, ins, ""> {
+  : GBZ80Inst<outs, ins, ""> {
   let isPseudo = 1;
   let Pattern = pattern;
 }
@@ -74,7 +74,7 @@ class PseudoI<dag outs, dag ins, list<dag> pattern>
 //===----------------------------------------------------------------------===//
 
 class I<bits<8> opc, dag outs, dag ins, string asmstr, list<dag> pattern,
-  int size = 1> : Z80Inst<outs, ins, asmstr> {
+  int size = 1> : GBZ80Inst<outs, ins, asmstr> {
   let Inst{7-0} = opc;
   let Size = size;
   let Pattern = pattern;
